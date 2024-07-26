@@ -33,92 +33,102 @@ public class ScrapServices {
     public static void main(String[] args) {
         int part = 1;
         String run = "MAX";
-        
+
         // Inicializar la primera parte
-        if (part == 1 && run.equals("MAX")) {
-            GetCategoriasWay getCategoryWAY = new GetCategoriasWay();
-            DB_ControllersAction db_controllerMax = new DB_ControllersAction();
-            List<productosURLs> old_categoriasMax = (List<productosURLs>) getCategoryWAY.getCategoria(urlBase, "div.section-item-content");
-            DeleteListCategorias new_categoriasMax = new DeleteListCategorias();
+        if (run.equals("MAX")) {
 
-            // NUMERAR PAGINAS
-            List<productosURLs> categorias = new_categoriasMax.eliminarDuplicados(old_categoriasMax);
-            db_controllerMax.saveCategorias(categorias, ".action.next", tienda, idTienda); // {.paginator} agencias way {.action.next} agencias max
+            if (part == 1) {
+                GetCategoriasWay getCategoryWAY = new GetCategoriasWay();
+                DB_ControllersAction db_controllerMax = new DB_ControllersAction();
+                List<productosURLs> old_categoriasMax = (List<productosURLs>) getCategoryWAY.getCategoria(urlBase, "div.section-item-content");
+                DeleteListCategorias new_categoriasMax = new DeleteListCategorias();
 
-            // Limpieza de memoria RAM y conexiones de MySQL para la primera parte
-            old_categoriasMax = null;
-            categorias = null;
-            new_categoriasMax = null;
-            getCategoryWAY = null;
-            db_controllerMax = null; // Método para cerrar conexiones de DB
-            db_controllerMax = null;
+                // NUMERAR PAGINAS
+                List<productosURLs> categorias = new_categoriasMax.eliminarDuplicados(old_categoriasMax);
+                db_controllerMax.saveCategorias(categorias, ".action.next", tienda, idTienda); // {.paginator} agencias way {.action.next} agencias max
 
-            System.gc(); // Llamada explícita al recolector de basura
-        }
+                // Limpieza de memoria RAM y conexiones de MySQL para la primera parte
+                old_categoriasMax = null;
+                categorias = null;
+                new_categoriasMax = null;
+                getCategoryWAY = null;
+                db_controllerMax = null; // Método para cerrar conexiones de DB
+                db_controllerMax = null;
 
-        // Inicializar la segunda parte
-        if (part == 2 && run.equals("MAX")) {
-            DB_ControllerMax dbControllers = new DB_ControllerMax();
-            dbControllers.leerUrlForPage(".product-items", "a.product.photo.product-item-photo[href]"); // {".product-items", "a.product.photo.product-item-photo[href]"} div y anchor html de max {".wrap-products", ".block-item a"} div y anchor agencias way
-            System.gc(); // Llamada explícita al recolector de basura
+                System.gc(); // Llamada explícita al recolector de basura
+            }
 
-        }
-        if (part == 3 && run.equals("MAX")) {
-            DB_ControllerMax wayProduct = new DB_ControllerMax();
-            wayProduct.saveProduct("MAX");
-            System.gc(); // Llamada explícita al recolector de basura
+            // Inicializar la segunda parte
+            if (part == 2) {
+                DB_ControllerMax dbControllers = new DB_ControllerMax();
+                dbControllers.leerUrlForPage(".product-items", "a.product.photo.product-item-photo[href]"); // {".product-items", "a.product.photo.product-item-photo[href]"} div y anchor html de max {".wrap-products", ".block-item a"} div y anchor agencias way
+                System.gc(); // Llamada explícita al recolector de basura
+
+            }
+            if (part == 3) {
+                DB_ControllerMax wayProduct = new DB_ControllerMax();
+                wayProduct.saveProduct("MAX");
+                System.gc(); // Llamada explícita al recolector de basura
+            }
         }
 
         //{CATEGORIAS SCRAPING AGENCIAS WAY}
-        if (part == 1 && run.equals("WAY")) {
-            GetCategoriasWay getCategoryWAY = new GetCategoriasWay();
-            DB_ControllersAction db_controllerWAY = new DB_ControllersAction();
-            List<productosURLs> old_categoriasWAY = (List<productosURLs>) getCategoryWAY.getCategoria(urlBaseWAY, "div.wrap-categories");
-            DeleteListCategorias new_categoriasWAY = new DeleteListCategorias();
+        if (run.equals("WAY")) {
 
-            //NUMERAR PAGINAS
-            List<productosURLs> categoriasWAY = (List<productosURLs>) new_categoriasWAY.eliminarDuplicados(old_categoriasWAY);
-            db_controllerWAY.saveCategorias(categoriasWAY, ".paginator", tiendaWAY, idTiendaWAY);//{.paginator} agencias way {.action.next} agencias max
-            System.gc(); // Llamada explícita al recolector de basura
-        }
-        if (part == 2 && run.equals("WAY")) {
-            DB_ControllerMax dbControllersWAY = new DB_ControllerMax();
+            if (part == 1) {
+                GetCategoriasWay getCategoryWAY = new GetCategoriasWay();
+                DB_ControllersAction db_controllerWAY = new DB_ControllersAction();
+                List<productosURLs> old_categoriasWAY = (List<productosURLs>) getCategoryWAY.getCategoria(urlBaseWAY, "div.wrap-categories");
+                DeleteListCategorias new_categoriasWAY = new DeleteListCategorias();
 
-            dbControllersWAY.leerUrlForPage(".wrap-products", ".block-item__thumb");//{".product-items", "a.product.photo.product-item-photo[href]"}div y anchor html de max {".wrap-products", ".block-item a"} div y anchor agencias way
-            System.gc(); // Llamada explícita al recolector de basura
+                //NUMERAR PAGINAS
+                List<productosURLs> categoriasWAY = (List<productosURLs>) new_categoriasWAY.eliminarDuplicados(old_categoriasWAY);
+                db_controllerWAY.saveCategorias(categoriasWAY, ".paginator", tiendaWAY, idTiendaWAY);//{.paginator} agencias way {.action.next} agencias max
+                System.gc(); // Llamada explícita al recolector de basura
+            }
+            if (part == 2) {
+                DB_ControllerMax dbControllersWAY = new DB_ControllerMax();
+
+                dbControllersWAY.leerUrlForPage(".wrap-products", ".block-item__thumb");//{".product-items", "a.product.photo.product-item-photo[href]"}div y anchor html de max {".wrap-products", ".block-item a"} div y anchor agencias way
+                System.gc(); // Llamada explícita al recolector de basura
+            }
+            if (part == 3) {
+                //RECORER PAGINAS
+                DB_ControllerMax wayProductWAY = new DB_ControllerMax();
+                wayProductWAY.saveProduct("WAY");
+                System.gc(); // Llamada explícita al recolector de basura
+            }
         }
-        if (part == 3 && run.equals("WAY")) {
-            //RECORER PAGINAS
-            DB_ControllerMax wayProductWAY = new DB_ControllerMax();
-            wayProductWAY.saveProduct("WAY");
-            System.gc(); // Llamada explícita al recolector de basura
-        }
+
         //panamericana
         //{CATEGORIAS SCRAPING PANAMERICANA}
-        if (part == 1 && run.equals("PANAMERICANA")) {
-            GetCategoriasWay getCategoryWAY = new GetCategoriasWay();
-            DB_ControllersAction db_controllerWAY = new DB_ControllersAction();
-            List<productosURLs> old_categoriasWAY = (List<productosURLs>) getCategoryWAY.getCategoria(urlPanamericana, "ul.sub-menu");
-            DeleteListCategorias new_categoriasWAY = new DeleteListCategorias();
-            //NUMERAR PAGINAS
-            List<productosURLs> categoriasWAY = (List<productosURLs>) new_categoriasWAY.eliminarDuplicados(old_categoriasWAY);
-            db_controllerWAY.saveCategorias(categoriasWAY, ".paginator", tiendaPanamericana, idTiendaPanamericana);//{.paginator} agencias way {.action.next} agencias max
-            System.gc(); // Llamada explícita al recolector de basura
+        if (run.equals("PANAMERICANA")) {
+
+            if (part == 1) {
+                GetCategoriasWay getCategoryWAY = new GetCategoriasWay();
+                DB_ControllersAction db_controllerWAY = new DB_ControllersAction();
+                List<productosURLs> old_categoriasWAY = (List<productosURLs>) getCategoryWAY.getCategoria(urlPanamericana, "ul.sub-menu");
+                DeleteListCategorias new_categoriasWAY = new DeleteListCategorias();
+                //NUMERAR PAGINAS
+                List<productosURLs> categoriasWAY = (List<productosURLs>) new_categoriasWAY.eliminarDuplicados(old_categoriasWAY);
+                db_controllerWAY.saveCategorias(categoriasWAY, ".paginator", tiendaPanamericana, idTiendaPanamericana);//{.paginator} agencias way {.action.next} agencias max
+                System.gc(); // Llamada explícita al recolector de basura
+            }
+
+            if (part == 2) {
+                DB_ControllerMax dbControllersWAY = new DB_ControllerMax();
+
+                dbControllersWAY.leerUrlForPage(".products", "div.inner_product > a");//{".product-items", "a.product.photo.product-item-photo[href]"}div y anchor html de max {".wrap-products", ".block-item a"} div y anchor agencias way
+                System.gc(); // Llamada explícita al recolector de basura
+            }
+
+            if (part == 3) {
+                //RECORER PAGINAS
+                DB_ControllerMax wayProductWAY = new DB_ControllerMax();
+                wayProductWAY.saveProduct("PANAMERICANA");
+                System.gc(); // Llamada explícita al recolector de basura
+            }
         }
-
-        if (part == 2 && run.equals("PANAMERICANA")) {
-            DB_ControllerMax dbControllersWAY = new DB_ControllerMax();
-
-            dbControllersWAY.leerUrlForPage(".products", "div.inner_product > a");//{".product-items", "a.product.photo.product-item-photo[href]"}div y anchor html de max {".wrap-products", ".block-item a"} div y anchor agencias way
-            System.gc(); // Llamada explícita al recolector de basura
-        }
-
-        if (part == 3 && run.equals("PANAMERICANA")) {
-            //RECORER PAGINAS
-            DB_ControllerMax wayProductWAY = new DB_ControllerMax();
-            wayProductWAY.saveProduct("PANAMERICANA");
-            System.gc(); // Llamada explícita al recolector de basura
-       }
     }
 
 }
