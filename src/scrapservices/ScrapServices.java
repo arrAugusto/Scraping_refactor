@@ -31,8 +31,8 @@ public class ScrapServices {
     public static final String idTiendaPanamericana = "05268";
 
     public static void main(String[] args) {
-        int part = 1;
-        String run = "MAX";
+        int part = 3;
+        String run = "PANAMERICANA";
 
         // Inicializar la primera parte
         if (run.equals("MAX")) {
